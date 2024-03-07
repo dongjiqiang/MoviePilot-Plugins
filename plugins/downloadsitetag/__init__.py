@@ -20,7 +20,7 @@ from app.helper.sites import SitesHelper
 from app.utils.string import StringUtils
 
 
-class DownloadSiteTag(_PluginBase):
+class DownloadSiteTagFix(_PluginBase):
     # 插件名称
     plugin_name = "下载任务分类与标签"
     # 插件描述
@@ -28,19 +28,19 @@ class DownloadSiteTag(_PluginBase):
     # 插件图标
     plugin_icon = "Youtube-dl_B.png"
     # 插件版本
-    plugin_version = "1.8"
+    plugin_version = "1.8-fix"
     # 插件作者
     plugin_author = "叮叮当"
     # 作者主页
     author_url = "https://github.com/cikezhu"
     # 插件配置项ID前缀
-    plugin_config_prefix = "DownloadSiteTag_"
+    plugin_config_prefix = "DownloadSiteTagFix_"
     # 加载顺序
     plugin_order = 2
     # 可使用的用户级别
     auth_level = 1
     # 日志前缀
-    LOG_TAG = "[DownloadSiteTag] "
+    LOG_TAG = "[DownloadSiteTagFix] "
 
     # 退出事件
     _event = threading.Event()
@@ -140,7 +140,7 @@ class DownloadSiteTag(_PluginBase):
                 if self._interval == "固定间隔":
                     if self._interval_unit == "小时":
                         return [{
-                            "id": "DownloadSiteTag",
+                            "id": "DownloadSiteTagFix",
                             "name": "补全下载历史的标签与分类",
                             "trigger": "interval",
                             "func": self._complemented_history,
@@ -153,7 +153,7 @@ class DownloadSiteTag(_PluginBase):
                             self._interval_time = 5
                             logger.info(f"{self.LOG_TAG}启动定时服务: 最小不少于5分钟, 防止执行间隔太短任务冲突")
                         return [{
-                            "id": "DownloadSiteTag",
+                            "id": "DownloadSiteTagFix",
                             "name": "补全下载历史的标签与分类",
                             "trigger": "interval",
                             "func": self._complemented_history,
@@ -163,7 +163,7 @@ class DownloadSiteTag(_PluginBase):
                         }]
                 else:
                     return [{
-                        "id": "DownloadSiteTag",
+                        "id": "DownloadSiteTagFix",
                         "name": "补全下载历史的标签与分类",
                         "trigger": CronTrigger.from_crontab(self._interval_cron),
                         "func": self._complemented_history,
@@ -374,8 +374,20 @@ class DownloadSiteTag(_PluginBase):
                 num_downloaded	整数	跟踪器报告的当前 torrent 的已完成下载次数
                 msg	字符串	跟踪器消息（无法知道此消息是什么 - 由跟踪器管理员决定）
                 """
-                return [tracker.get("url") for tracker in (torrent.trackers or []) if
-                        tracker.get("tier", -1) >= 0 and tracker.get("url")]
+                if isinstance(torrent.trackers, list) and torrent.trackers:
+                    valid_trackers = [tracker.get("url") for tracker in torrent.trackers if tracker.get("tier", -1) >= 0 and tracker.get("url")]
+                elif isinstance(torrent.trackers, str):
+                    trackers_list = torrent.trackers.split(",") if torrent.trackers else []
+                    filtered_trackers = [tracker.strip() for tracker in trackers_list if tracker.strip()]
+                    valid_trackers = [tracker for tracker in filtered_trackers if "://" in tracker]
+                elif isinstance(torrent.tracker, str):
+                    trackers_list = torrent.tracker.split(",") if isinstance(torrent.tracker, str) else []
+                    filtered_trackers = [tracker.strip() for tracker in trackers_list if tracker.strip()]
+                    valid_trackers = [tracker for tracker in filtered_trackers if "://" in tracker]
+                else:
+                    valid_trackers = []
+
+                return valid_trackers
             else:
                 """
                 class Tracker(Container):
