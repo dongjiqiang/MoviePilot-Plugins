@@ -6,5 +6,13 @@
     "icon": "Youtube-dl_B.png",
     "author": "叮叮当",
     "level": 1
+  },
+  "TorrentRemoverGai": {
+    "name": "自动删种(改)",
+    "description": "自动删除下载器中的下载任务。",
+    "version": "1.0",
+    "icon": "delete.jpg",
+    "author": "jxxghp",
+    "level": 2
   }
 }
