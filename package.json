@@ -8,7 +8,7 @@
     "level": 1
   },
   "TorrentRemoverGai": {
-    "name": "自动删种(改)",
+    "name": "自动删种",
     "description": "自动删除下载器中的下载任务。",
     "version": "1.0",
     "icon": "delete.jpg",
