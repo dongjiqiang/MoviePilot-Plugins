@@ -27,7 +27,7 @@ class TorrentRemoverGai(_PluginBase):
     # 插件图标
     plugin_icon = "delete.jpg"
     # 插件版本
-    plugin_version = "1.0"
+    plugin_version = "1.1"
     # 插件作者
     plugin_author = "jxxghp"
     # 作者主页
@@ -618,7 +618,6 @@ class TorrentRemoverGai(_PluginBase):
                                 logger.info(f"自动删种服务停止")
                                 return
                             text_item = f"{torrent.get('name')} " \
-                                        f"来自站点：{torrent.get('site')} " \
                                         f"大小：{StringUtils.str_filesize(torrent.get('size'))}"
                             # 暂停种子
                             downlader_obj.stop_torrents(ids=[torrent.get("id")])
@@ -631,7 +630,6 @@ class TorrentRemoverGai(_PluginBase):
                                 logger.info(f"自动删种服务停止")
                                 return
                             text_item = f"{torrent.get('name')} " \
-                                        f"来自站点：{torrent.get('site')} " \
                                         f"大小：{StringUtils.str_filesize(torrent.get('size'))}"
                             # 删除种子
                             downlader_obj.delete_torrents(delete_file=False,
@@ -645,7 +643,6 @@ class TorrentRemoverGai(_PluginBase):
                                 logger.info(f"自动删种服务停止")
                                 return
                             text_item = f"{torrent.get('name')} " \
-                                        f"来自站点：{torrent.get('site')} " \
                                         f"大小：{StringUtils.str_filesize(torrent.get('size'))}"
                             # 删除种子
                             downlader_obj.delete_torrents(delete_file=True,
@@ -819,7 +816,7 @@ class TorrentRemoverGai(_PluginBase):
                             })
                         else:
                             temp_remove_torrents.append(remove_torrent)
-                            logger.warn(f"{name} 来自站点: {remove_torrent.site} 存在不满足删除条件的辅种, 本次跳过")
+                            logger.warn(f"{name} 存在不满足删除条件的辅种, 本次跳过")
             temp_remove_torrents_ids = {obj["id"] for obj in temp_remove_torrents}
             remove_torrents[:] = [obj for obj in remove_torrents if obj["id"] not in temp_remove_torrents_ids]
             if remove_torrents_plus:
