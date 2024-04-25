@@ -15,7 +15,7 @@ class DingTalkBotMsg(_PluginBase):
     # 插件图标
     plugin_icon = "https://mp-baa3849c-ebde-4ec9-9161-f833c19d9a61.cdn.bspapp.com/dingtalk.png"
     # 插件版本
-    plugin_version = "1.1"
+    plugin_version = "1.2"
     # 插件作者
     plugin_author = "dongjiqiang"
     # 作者主页
@@ -179,7 +179,7 @@ class DingTalkBotMsg(_PluginBase):
                     "msgtype": "markdown",
                     "markdown": {
                         "title": title,
-                        "text": "#### **" + title + "** \n" + text.replace('\n', ' \n > ###### ')
+                        "text": "#### **" + title + "** \n" + text.replace('\n', ' \n ###### ')
                     }
                 }
             else:
@@ -187,7 +187,7 @@ class DingTalkBotMsg(_PluginBase):
                     "msgtype": "markdown",
                     "markdown": {
                         "title": title,
-                        "text": "#### **" + title + "** \n" + text.replace('\n', ' \n > ###### ') + "\n ![image](" + image + ")"
+                        "text": "#### **" + title + "** \n" + text.replace('\n', ' \n ###### ') + "\n ![image](" + image + ")"
                     }
                 }
 
