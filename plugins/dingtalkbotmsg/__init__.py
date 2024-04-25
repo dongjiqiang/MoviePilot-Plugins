@@ -15,7 +15,7 @@ class DingTalkBotMsg(_PluginBase):
     # 插件图标
     plugin_icon = "https://mp-baa3849c-ebde-4ec9-9161-f833c19d9a61.cdn.bspapp.com/dingtalk.png"
     # 插件版本
-    plugin_version = "1.1"
+    plugin_version = "1.0"
     # 插件作者
     plugin_author = "董继强"
     # 作者主页
@@ -179,7 +179,7 @@ class DingTalkBotMsg(_PluginBase):
                     "msgtype": "markdown",
                     "markdown": {
                         "title": title,
-                        "content": title + "\n" + text,
+                        "text": title + "\n" + text,
                     }
                 }
             else:
@@ -187,7 +187,7 @@ class DingTalkBotMsg(_PluginBase):
                     "msgtype": "markdown",
                     "markdown": {
                         "title": title,
-                        "content": title + "\n" + text + "\n" + image,
+                        "text": title + "\n" + text + "\n" + image,
                     }
                 }
 
