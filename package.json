@@ -14,5 +14,13 @@
     "icon": "delete.jpg",
     "author": "jxxghp",
     "level": 1
+  },
+  "DingTalkBotMsg": {
+    "name": "钉钉机器人消息推送",
+    "description": "支持使用钉钉群聊机器人发送消息通知。",
+    "version": "1.0",
+    "icon": "https://mp-baa3849c-ebde-4ec9-9161-f833c19d9a61.cdn.bspapp.com/dingtalk.png",
+    "author": "董继强",
+    "level": 1
   }
 }
