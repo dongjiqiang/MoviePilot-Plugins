@@ -15,7 +15,7 @@ class DingTalkBotMsg(_PluginBase):
     # 插件图标
     plugin_icon = "https://mp-baa3849c-ebde-4ec9-9161-f833c19d9a61.cdn.bspapp.com/dingtalk.png"
     # 插件版本
-    plugin_version = "1.0"
+    plugin_version = "1.1"
     # 插件作者
     plugin_author = "董继强"
     # 作者主页
@@ -98,7 +98,7 @@ class DingTalkBotMsg(_PluginBase):
                                         'props': {
                                             'model': 'webhookurl',
                                             'label': 'WebHook地址',
-                                            'placeholder': 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxxxxxxx',
+                                            'placeholder': 'https://oapi.dingtalk.com/robot/send?access_token=xxxxxxxxx',
                                         }
                                     }
                                 ]
@@ -191,7 +191,7 @@ class DingTalkBotMsg(_PluginBase):
                     }
                 }
 
-            res = RequestUtils().post_res(url=self._webhookurl, json=payload)
+            res = RequestUtils(content_type="application/json").post_res(self._webhookurl, json=payload)
             if res and res.status_code == 200:
                 ret_json = res.json()
                 errno = ret_json.get('errcode')
