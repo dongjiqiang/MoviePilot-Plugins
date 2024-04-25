@@ -17,7 +17,7 @@ class DingTalkBotMsg(_PluginBase):
     # 插件版本
     plugin_version = "1.0"
     # 插件作者
-    plugin_author = "董继强"
+    plugin_author = "dongjiqiang"
     # 作者主页
     author_url = "https://github.com/dongjiqiang"
     # 插件配置项ID前缀
