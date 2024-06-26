@@ -21,17 +21,17 @@ lock = threading.Lock()
 
 class TorrentRemoverGai(_PluginBase):
     # 插件名称
-    plugin_name = "自动删种"
+    plugin_name = "自动删种（自用）"
     # 插件描述
-    plugin_desc = "自动删除下载器中的下载任务。"
+    plugin_desc = "自动删除下载器中的下载任务（删除辅种优化）。"
     # 插件图标
     plugin_icon = "delete.jpg"
     # 插件版本
     plugin_version = "1.1"
     # 插件作者
-    plugin_author = "jxxghp"
+    plugin_author = "dongjiqiang"
     # 作者主页
-    author_url = "https://github.com/jxxghp"
+    author_url = "https://github.com/dongjiqiang"
     # 插件配置项ID前缀
     plugin_config_prefix = "TorrentRemoverGai_"
     # 加载顺序
