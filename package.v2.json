@@ -1,0 +1,12 @@
+{
+  "TorrentRemoverGai": {
+    "name": "自动删种（自用）",
+    "description": "自动删除下载器中的下载任务。(修改辅种不满足删种条件则跳过)",
+    "version": "2.0",
+    "labels": "删种,辅种过滤",
+    "icon": "delete.jpg",
+    "author": "dongjiqiang",
+    "level": 1,
+    "v2": true
+  }
+}

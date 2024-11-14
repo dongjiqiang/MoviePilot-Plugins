@@ -5,8 +5,7 @@
     "version": "1.1",
     "icon": "delete.jpg",
     "author": "dongjiqiang",
-    "level": 1,
-    "v2": true
+    "level": 1
   },
   "DingTalkBotMsg": {
     "name": "钉钉机器人消息推送",
