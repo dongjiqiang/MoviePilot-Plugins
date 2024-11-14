@@ -26,7 +26,7 @@ class AutoDeleteTorrent(_PluginBase):
     # 插件图标
     plugin_icon = "delete.jpg"
     # 插件版本
-    plugin_version = "2.0"
+    plugin_version = "2.1"
     # 插件作者
     plugin_author = "dongjiqiang"
     # 作者主页
@@ -830,7 +830,7 @@ class AutoDeleteTorrent(_PluginBase):
                             and plus_size == size \
                             and plus_id not in remove_ids:
                          # 判断辅种是否符合删除条件
-                        if downloader == "qbittorrent":
+                        if downloader_config.type == "qbittorrent":
                             item = self.__get_qb_torrent(torrent)
                         else:
                             item = self.__get_tr_torrent(torrent)
