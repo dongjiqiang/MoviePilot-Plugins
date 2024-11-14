@@ -814,7 +814,6 @@ class AutoDeleteTorrent(_PluginBase):
                 name = remove_torrent.get("name")
                 size = remove_torrent.get("size")
                 for torrent in torrents:
-                    downloader_config = self.__get_downloader_config(downloader)
                     if downloader_config.type == "qbittorrent":
                         plus_id = torrent.hash
                         plus_name = torrent.name
