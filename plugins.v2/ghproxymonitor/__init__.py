@@ -24,9 +24,9 @@ class GhProxyMonitor(_PluginBase):
     # 插件描述
     plugin_desc = "监控https://ghproxy.link网站，获取当前可用加速地址。""
     # 插件图标
-    plugin_icon = "github.png"
+    plugin_icon = "Github_C.png"
     # 插件版本
-    plugin_version = "1.0"
+    plugin_version = "1.1"
     # 插件作者
     plugin_author = "dongjiqiang"
     # 作者主页
@@ -202,6 +202,16 @@ class GhProxyMonitor(_PluginBase):
             "onlyonce": False,
             "cron": '0 */1 * * *'
         }
+
+    def get_page(self) -> List[dict]:
+        pass
+    
+    def get_api(self) -> List[Dict[str, Any]]:
+        pass
+
+    @staticmethod
+    def get_command() -> List[Dict[str, Any]]:
+        pass
 
     def stop_service(self):
         try:
