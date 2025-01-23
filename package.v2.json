@@ -12,29 +12,16 @@
       "v2.0": "升级至v2, 不满足条件的辅种跳过删除"
     }
   },
-  "DcHelper": {
-    "name": "DC助手",
-    "description": "配合DockerCopilot,完成更新通知、自动更改、自动备份功能(作者gxterry未出v2, 先弄个自用)",
-    "labels": "Docker",
-    "version": "2.0",
-    "icon": "https://raw.githubusercontent.com/gxterry/MoviePilot-Plugins/main/icons/Docker_Copilot.png",
-    "author": "gxterry",
-    "level": 1,
+  "GhProxyMonitor": {
+    "name": "Github代理监控",
+    "description": "监控https://ghproxy.link网站，获取当前可用加速地址。",
+    "version": "1.0",
+    "labels": "github, 代理监控",
+    "icon": "github.png",
+    "author": "dongjiqiang",
+    "level": 2,
     "history": {
-      "v1.1.2": "修复网络异常导致的数据无法加载问题",
-      "v1.1.1": "修复面板加载异常"
-    }
-  },
-  "FilesCopy": {
-    "name": "文件复制(修改)",
-    "description": "自定义文件类型从源目录复制到目的目录。(排除.!qB文件)",
-    "labels": "工具",
-    "version": "2.0",
-    "icon": "https://raw.githubusercontent.com/thsrite/MoviePilot-Plugins/main/icons/copy_files.png",
-    "author": "thsrite,dongjiqiang",
-    "level": 1,
-    "history": {
-      "v2.0": "排除.!qB文件"
+      "v1.0": "初始版本"
     }
   }
 }
