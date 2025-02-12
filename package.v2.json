@@ -23,17 +23,5 @@
     "history": {
       "v2.0": "排除.!qB文件"
     }
-  },
-  "Deepseek": {
-    "name": "Deepseek",
-    "description": "使用Deepseek AI进行媒体信息识别。(测试中)",
-    "labels": "识别",
-    "version": "1.0",
-    "icon": "deepseek.png",
-    "author": "dongjiqiang",
-    "level": 1,
-    "history": {
-      "v1.0": "首次发布，支持媒体信息AI识别"
-    }
   }
 }
