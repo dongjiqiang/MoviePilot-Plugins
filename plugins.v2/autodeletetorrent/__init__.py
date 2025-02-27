@@ -813,7 +813,6 @@ class AutoDeleteTorrent(_PluginBase):
             for remove_torrent in remove_torrents:
                 name = remove_torrent.get("name")
                 size = remove_torrent.get("size")
-                skip_original = False
                 for torrent in torrents:
                     if downloader_config.type == "qbittorrent":
                         plus_id = torrent.hash
@@ -843,11 +842,8 @@ class AutoDeleteTorrent(_PluginBase):
                                 "size": plus_size
                             })
                         else:
-                            skip_original = True
+                            temp_remove_torrents.append(remove_torrent)
                             logger.warn(f"{name} 存在不满足删除条件的辅种, 本次跳过")
-                            break
-                if skip_original:
-                    temp_remove_torrents.append(remove_torrent)
             temp_remove_torrents_ids = {obj["id"] for obj in temp_remove_torrents}
             remove_torrents[:] = [obj for obj in remove_torrents if obj["id"] not in temp_remove_torrents_ids]
             if remove_torrents_plus:
