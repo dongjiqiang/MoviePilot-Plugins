@@ -23,22 +23,5 @@
     "history": {
       "v2.0": "排除.!qB文件"
     }
-  },
-  "LibraryScraperEdit": {
-    "name": "媒体库刮削(修改)",
-    "description": "定时对媒体库进行刮削，补齐缺失元数据和图片。",
-    "labels": "刮削,重命名",
-    "version": "2.2.4",
-    "icon": "scraper.png",
-    "author": "jxxghp,dongjiqiang",
-    "level": 1,
-    "history": {
-      "v2.2": "增加是否重命名功能",
-      "v2.1.1": "调整目录计算方法，以支持更多重命名格式",
-      "v2.1": "优化执行周期输入，需要MoviePilot v2.2.1+",
-      "v2.0": "兼容MoviePilot V2 版本",
-      "v1.5": "修复未获取fanart图片的问题",
-      "v1.4.1": "修复nfo文件读取失败时任务中断问题"
-    }
   }
 }
