@@ -27,7 +27,7 @@ class LibraryScraperEdit(_PluginBase):
     # 插件图标
     plugin_icon = "scraper.png"
     # 插件版本
-    plugin_version = "2.2.1"
+    plugin_version = "2.2.2"
     # 插件作者
     plugin_author = "jxxghp,dongjiqiang"
     # 作者主页
@@ -46,6 +46,7 @@ class LibraryScraperEdit(_PluginBase):
     _scraper = None
     # 限速开关
     _enabled = False
+    _rename_enabled = False
     _onlyonce = False
     _cron = None
     _mode = ""
@@ -64,7 +65,7 @@ class LibraryScraperEdit(_PluginBase):
             self._mode = config.get("mode") or ""
             self._scraper_paths = config.get("scraper_paths") or ""
             self._exclude_paths = config.get("exclude_paths") or ""
-            self._rename_enabled = config.get("rename_enabled") or False
+            self._rename_enabled = config.get("rename_enabled")
 
         # 停止现有任务
         self.stop_service()
@@ -84,7 +85,7 @@ class LibraryScraperEdit(_PluginBase):
                 self.update_config({
                     "onlyonce": False,
                     "enabled": self._enabled,
-                    "enabrename_enabledled": self._rename_enabled,
+                    "rename_enabled": self._rename_enabled,
                     "cron": self._cron,
                     "mode": self._mode,
                     "scraper_paths": self._scraper_paths,
@@ -145,7 +146,7 @@ class LibraryScraperEdit(_PluginBase):
                             {
                                 'component': 'VCol',
                                 'props': {
-                                    'cols': 12,
+                                    'cols': 8,
                                     'md': 6
                                 },
                                 'content': [
@@ -164,7 +165,7 @@ class LibraryScraperEdit(_PluginBase):
                             {
                                 'component': 'VCol',
                                 'props': {
-                                    'cols': 12,
+                                    'cols': 8,
                                     'md': 6
                                 },
                                 'content': [
@@ -182,7 +183,7 @@ class LibraryScraperEdit(_PluginBase):
                             {
                                 'component': 'VCol',
                                 'props': {
-                                    'cols': 12,
+                                    'cols': 8,
                                     'md': 6
                                 },
                                 'content': [
@@ -524,7 +525,7 @@ class LibraryScraperEdit(_PluginBase):
             new_name = f"{prefix} - {title}"
             
             # 重命名相关文件
-            for ext in [".mp4", ".mkv", ".avi", ".jpg", ".nfo"]:
+            for ext in [".mp4", ".mkv", ".avi", ".jpg", ".png", ".jpeg", ".nfo"]:
                 old_file = path.parent / f"{base_name}{ext}"
                 if old_file.exists():
                     new_file = path.parent / f"{new_name}{ext}"
