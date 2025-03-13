@@ -27,7 +27,7 @@ class LibraryScraperEdit(_PluginBase):
     # 插件图标
     plugin_icon = "scraper.png"
     # 插件版本
-    plugin_version = "2.2"
+    plugin_version = "2.2.1"
     # 插件作者
     plugin_author = "jxxghp,dongjiqiang"
     # 作者主页
@@ -84,6 +84,7 @@ class LibraryScraperEdit(_PluginBase):
                 self.update_config({
                     "onlyonce": False,
                     "enabled": self._enabled,
+                    "enabrename_enabledled": self._rename_enabled,
                     "cron": self._cron,
                     "mode": self._mode,
                     "scraper_paths": self._scraper_paths,
@@ -158,6 +159,27 @@ class LibraryScraperEdit(_PluginBase):
                                 ]
                             },
                             {
+                        'component': 'VRow',
+                        'content': [
+                            {
+                                'component': 'VCol',
+                                'props': {
+                                    'cols': 12,
+                                    'md': 6
+                                },
+                                'content': [
+                                    {
+                                        'component': 'VSwitch',
+                                        'props': {
+                                            'model': 'rename_enabled',
+                                            'label': '启用重命名',
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                            {
                                 'component': 'VCol',
                                 'props': {
                                     'cols': 12,
@@ -217,27 +239,7 @@ class LibraryScraperEdit(_PluginBase):
                             }
                         ]
                     },
-                    {
-                        'component': 'VRow',
-                        'content': [
-                            {
-                                'component': 'VCol',
-                                'props': {
-                                    'cols': 12,
-                                    'md': 6
-                                },
-                                'content': [
-                                    {
-                                        'component': 'VSwitch',
-                                        'props': {
-                                            'model': 'rename_enabled',
-                                            'label': '启用重命名',
-                                        }
-                                    }
-                                ]
-                            }
-                        ]
-                    },
+                    
                     {
                         'component': 'VRow',
                         'content': [
@@ -503,11 +505,20 @@ class LibraryScraperEdit(_PluginBase):
             if not title:
                 return
             
-            # 获取文件名前缀（如 滤镜 - S01E25）
+            # 获取文件名前缀
             base_name = path.stem
-            if " - 第" not in base_name:
-                return
-            prefix = base_name.split(" - 第")[0]
+            prefix = None
+            
+            # 尝试不同的分隔模式
+            patterns = [" - 第", " - S", " - E", " - "]
+            for pattern in patterns:
+                if pattern in base_name:
+                    prefix = base_name.split(pattern)[0]
+                    break
+            
+            # 如果没有找到合适的分隔符，使用原始文件名作为前缀
+            if not prefix:
+                prefix = base_name
             
             # 新文件名
             new_name = f"{prefix} - {title}"
@@ -517,6 +528,9 @@ class LibraryScraperEdit(_PluginBase):
                 old_file = path.parent / f"{base_name}{ext}"
                 if old_file.exists():
                     new_file = path.parent / f"{new_name}{ext}"
+                    if new_file.exists():
+                        logger.warning(f"目标文件已存在，跳过重命名: {new_file.name}")
+                        continue
                     old_file.rename(new_file)
                     logger.info(f"重命名文件: {old_file.name} -> {new_file.name}")
         except Exception as e:
