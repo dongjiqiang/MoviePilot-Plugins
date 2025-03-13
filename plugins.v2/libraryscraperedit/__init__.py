@@ -27,7 +27,7 @@ class LibraryScraperEdit(_PluginBase):
     # 插件图标
     plugin_icon = "scraper.png"
     # 插件版本
-    plugin_version = "2.2.3"
+    plugin_version = "2.2.4"
     # 插件作者
     plugin_author = "jxxghp,dongjiqiang"
     # 作者主页
@@ -449,8 +449,10 @@ class LibraryScraperEdit(_PluginBase):
         
         # 重命名文件
         if self._rename_enabled:
+            logger.info(f"开始循环重命名文件: {path}")
             if mtype == MediaType.TV:
                 # 电视剧：遍历所有nfo文件进行重命名
+                logger.info(f"开始处理文件重命名: {path.glob("*.nfo")}")
                 for file_path in path.glob("*.nfo"):
                     if file_path.stem != "tvshow":
                         self.__rename_files(file_path.parent / file_path.stem, file_path)
