@@ -28,7 +28,7 @@
     "name": "媒体库刮削(修改)",
     "description": "定时对媒体库进行刮削，补齐缺失元数据和图片。",
     "labels": "刮削,重命名",
-    "version": "2.2.2",
+    "version": "2.2.3",
     "icon": "scraper.png",
     "author": "jxxghp,dongjiqiang",
     "level": 1,

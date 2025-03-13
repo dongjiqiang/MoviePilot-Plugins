@@ -27,7 +27,7 @@ class LibraryScraperEdit(_PluginBase):
     # 插件图标
     plugin_icon = "scraper.png"
     # 插件版本
-    plugin_version = "2.2.2"
+    plugin_version = "2.2.3"
     # 插件作者
     plugin_author = "jxxghp,dongjiqiang"
     # 作者主页
@@ -448,10 +448,21 @@ class LibraryScraperEdit(_PluginBase):
         )
         
         # 重命名文件
-        if mtype == MediaType.TV:
-            for file_path in path.glob("*.nfo"):
-                if file_path.stem != "tvshow":
-                    self.__rename_files(file_path.parent / file_path.stem, file_path)
+        if self._rename_enabled:
+            if mtype == MediaType.TV:
+                # 电视剧：遍历所有nfo文件进行重命名
+                for file_path in path.glob("*.nfo"):
+                    if file_path.stem != "tvshow":
+                        self.__rename_files(file_path.parent / file_path.stem, file_path)
+            else:
+                # 电影：重命名主文件
+                movie_nfo = path / "movie.nfo"
+                if movie_nfo.exists():
+                    self.__rename_files(path / path.stem, movie_nfo)
+                else:
+                    file_nfo = path / (path.stem + ".nfo")
+                    if file_nfo.exists():
+                        self.__rename_files(path / path.stem, file_nfo)
         
         logger.info(f"{path} 刮削完成")
 
@@ -497,42 +508,54 @@ class LibraryScraperEdit(_PluginBase):
 
     def __rename_files(self, path: Path, nfo_path: Path):
         """重命名文件"""
+        logger.info(f"开始处理文件重命名: {path}")
         if not self._rename_enabled:
+            logger.info("重命名功能未启用，跳过重命名处理")
             return
         try:
             # 读取nfo文件中的title
+            logger.info(f"正在读取NFO文件: {nfo_path}")
             reader = NfoReader(nfo_path)
             title = reader.get_element_value("title")
             if not title:
+                logger.warning(f"未能从NFO文件中读取到标题信息: {nfo_path}")
                 return
+            logger.info(f"从NFO文件中读取到标题: {title}")
             
             # 获取文件名前缀
             base_name = path.stem
             prefix = None
+            logger.info(f"当前文件名: {base_name}")
             
             # 尝试不同的分隔模式
             patterns = [" - 第", " - S", " - E", " - "]
             for pattern in patterns:
                 if pattern in base_name:
                     prefix = base_name.split(pattern)[0]
+                    logger.info(f"找到匹配的分隔模式: {pattern}, 提取的前缀: {prefix}")
                     break
             
             # 如果没有找到合适的分隔符，使用原始文件名作为前缀
             if not prefix:
                 prefix = base_name
+                logger.info(f"未找到匹配的分隔模式，使用完整文件名作为前缀: {prefix}")
             
             # 新文件名
             new_name = f"{prefix} - {title}"
+            logger.info(f"生成的新文件名: {new_name}")
             
             # 重命名相关文件
             for ext in [".mp4", ".mkv", ".avi", ".jpg", ".png", ".jpeg", ".nfo"]:
                 old_file = path.parent / f"{base_name}{ext}"
                 if old_file.exists():
                     new_file = path.parent / f"{new_name}{ext}"
+                    logger.info(f"处理文件: {old_file.name}")
                     if new_file.exists():
                         logger.warning(f"目标文件已存在，跳过重命名: {new_file.name}")
                         continue
                     old_file.rename(new_file)
-                    logger.info(f"重命名文件: {old_file.name} -> {new_file.name}")
+                    logger.info(f"重命名文件成功: {old_file.name} -> {new_file.name}")
+            logger.info(f"文件重命名处理完成: {path}")
         except Exception as e:
             logger.error(f"重命名文件失败: {str(e)}")
+            logger.exception(e)
